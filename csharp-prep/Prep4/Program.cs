@@ -11,10 +11,11 @@ class Program
         List<int> numbers = new List<int>();
 
         int listNum = -1;
+        
+        Console.WriteLine("Enter a list of numbers, type 0 when finished. ");
 
         do // Ask the user for a series of numbers, and append each one to a list.
-        { 
-            Console.WriteLine("Enter a list of numbers, type 0 when finished. ");
+        {
             Console.Write("Enter number: ");
             listNum = int.Parse(Console.ReadLine());
             if (listNum != 0)
@@ -35,8 +36,14 @@ class Program
         // int avg = totalSum / numbers.Count; // has No decimals whoops.
         float average = ((float)totalSum) / numbers.Count;
         Console.WriteLine($"The average is: {average}");
-        
+
         // Find the maximum number in the list.
+        // sort list then select last number
+        numbers.Sort();
+        Console.WriteLine($"The largest number is: {numbers[numbers.Count-1]}");
         
+        // sorted list output
+        Console.WriteLine("The sorted list is:");
+        Console.WriteLine(string.Join(", ", numbers));
     }
 }
