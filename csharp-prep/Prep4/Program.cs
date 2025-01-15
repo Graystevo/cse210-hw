@@ -23,14 +23,20 @@ class Program
             }
         } while (listNum != 0);  // Stop when they enter 0.
 
-        // Compute the sum, or total, of the numbers in the list.
+        // Compute the sum of the numbers in the list. done
         int totalSum = 0;
         foreach (int number in numbers)
         {
             totalSum = totalSum + number;
         }
+        Console.WriteLine($"The sum is: {totalSum}");
 
         // Compute the average of the numbers in the list.
-        // Find the maximum, or largest, number in the list.
+        // int avg = totalSum / numbers.Count; // has No decimals whoops.
+        float average = ((float)totalSum) / numbers.Count;
+        Console.WriteLine($"The average is: {average}");
+        
+        // Find the maximum number in the list.
+        
     }
 }
