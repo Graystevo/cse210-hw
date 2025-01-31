@@ -8,12 +8,12 @@ public class Entry
 
     public Entry(string prompt, string response)
     {
+        Date = DateTime.Now.ToShortDateString();
         Prompt = prompt;
         Response = response;
-        Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
     }
 
-    public override string ToString()
+    public string ToEntry()
     {
         return $"Date: {Date}\nPrompt: {Prompt}\nResponse: {Response}\n";
     }

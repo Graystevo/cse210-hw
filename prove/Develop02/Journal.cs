@@ -5,46 +5,57 @@ using System.IO;
 public class Journal
 {
     private List<Entry> entries = new List<Entry>();
-    private string fileName;
 
-    public void AddEntry(Entry entry)
+    public void AddEntry(string prompt, string response)
     {
-        // Directly save to the file instead of a list.
-        File.AppendAllText(fileName, $"{entry.Date}~|~{entry.Prompt}~|~{entry.Response}\n");
+        entries.Add(new Entry(prompt, response));
     }
 
-    public void DisplayJournal()
+    public void DisplayEntries()
     {
+        if (entries.Count == 0)
+        {
+            Console.WriteLine("No entries found.");
+            return;
+        }
+
         foreach (var entry in entries)
         {
-            Console.WriteLine(entry.ToString());
+            Console.WriteLine(entry);
         }
     }
 
-    public void SaveJournalToFile(string fileName)
+    public void SaveToFile(string filename)
     {
-        this.fileName = fileName;
-        foreach (var entry in entries)
+        using (StreamWriter writer = new StreamWriter(filename))
         {
-            AddEntry(entry);
-        }
-    }
-
-    public void LoadJournalFromFile(string fileName)
-    {
-        this.fileName = fileName;
-        entries.Clear(); // Clear current entries
-        if (File.Exists(fileName))
-        {
-            foreach (var line in File.ReadLines(fileName))
+            foreach (var entry in entries)
             {
-                var parts = line.Split(new[] { "~|~" }, StringSplitOptions.None);
-                if (parts.Length == 3)
-                {
-                    var entry = new Entry(parts[1], parts[2]) { Date = parts[0] };
-                    entries.Add(entry);
-                }
+                writer.WriteLine($"{entry.Date}~|~{entry.Prompt}~|~{entry.Response}");
             }
         }
+        Console.WriteLine("Journal saved successfully.");
+    }
+
+    public void LoadFromFile(string filename)
+    {
+        if (!File.Exists(filename))
+        {
+            Console.WriteLine("File not found.");
+            return;
+        }
+
+        entries.Clear();
+        string[] lines = File.ReadAllLines(filename);
+        foreach (var line in lines)
+        {
+            string[] parts = line.Split("~|~");
+            if (parts.Length == 3)
+            {
+                Entry entry = new Entry(parts[1], parts[2]) { Date = parts[0] };
+                entries.Add(entry);
+            }
+        }
+        Console.WriteLine("Journal loaded successfully.");
     }
 }
