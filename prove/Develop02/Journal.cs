@@ -4,7 +4,7 @@ using System.IO;
 
 public class Journal
 {
-    private List<Entry> _entries = new List<Entry>();
+    private List<Entry> _entries = new List<Entry>(); // swapped to list in memory instead of temp file cache on disk
 
     public void AddEntry(string prompt, string response)
     {
@@ -13,19 +13,19 @@ public class Journal
 
     public void DisplayEntries()
     {
-        if (_entries.Count == 0)
+        if (_entries.Count == 0) // checks if entry list is empty
         {
             Console.WriteLine("No entries found.");
             return;
         }
 
-        foreach (var entry in _entries)
+        foreach (var entry in _entries) // loop and display each loop
         {
             Console.WriteLine(entry.GetEntryDetails());
         }
     }
 
-    public void SaveToFile(string filename)
+    public void SaveToFile(string filename) // saves file line by line to filename
     {
         using (StreamWriter writer = new StreamWriter(filename))
         {
@@ -37,7 +37,7 @@ public class Journal
         Console.WriteLine("Journal saved successfully.");
     }
 
-    public void LoadFromFile(string filename)
+    public void LoadFromFile(string filename) // loads file
     {
         if (!File.Exists(filename))
         {
@@ -46,13 +46,14 @@ public class Journal
         }
 
         _entries.Clear();
-        string[] lines = File.ReadAllLines(filename);
-        foreach (var line in lines)
+
+        string[] _lines = File.ReadAllLines(filename);
+        foreach (var _line in _lines)
         {
-            string[] parts = line.Split("~|~");
-            if (parts.Length == 3)
-            {
-                Entry entry = new Entry(parts[1], parts[2]) { _date = parts[0] };
+            string[] _parts = _line.Split("~|~"); // read like csv with breaks at the symbol combo shown
+            if (_parts.Length == 3)
+            {                          // part 1 = prompt, part 2 = response, part 0 = date
+                Entry entry = new Entry(_parts[1], _parts[2]) { _date = _parts[0] };
                 _entries.Add(entry);
             }
         }
