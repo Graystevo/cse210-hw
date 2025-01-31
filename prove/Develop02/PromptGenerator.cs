@@ -1,22 +1,21 @@
 using System;
-using System.Collections.Generic;
 
 public class PromptGenerator
 {
-    private List<string> prompts = new List<string>
+    private static readonly string[] prompts = 
     {
         "Who was the most interesting person I interacted with today?",
         "What was the best part of my day?",
-        "What is one thing I learned today?",
-        "If I had a time machine, what would I change about today?",
-        "Describe a moment that made you smile today."
+        "How did I see the hand of the Lord in my life today?",
+        "What was the strongest emotion I felt today?",
+        "If I had one thing I could do over today, what would it be?"
     };
 
-    private Random random = new Random();
+    private Random _random = new Random();
 
     public string GetRandomPrompt()
     {
-        int index = random.Next(prompts.Count);
+        int index = _random.Next(prompts.Length);
         return prompts[index];
     }
 }
