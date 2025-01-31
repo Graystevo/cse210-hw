@@ -2,7 +2,7 @@ using System;
 
 public class Resume
 {
-    // persons name
+    // Member variable persons name
     public string _name;
 
     // Member variable for the list of jobs
