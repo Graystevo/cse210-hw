@@ -1,20 +1,19 @@
 using System;
 
 public class Entry
-{
-    public string Prompt { get; set; }
-    public string Response { get; set; }
-    public string Date { get; set; }
-
+{   
+    public string _date;
+    public string _prompt;
+    public string _response;
     public Entry(string prompt, string response)
     {
-        Date = DateTime.Now.ToShortDateString();
-        Prompt = prompt;
-        Response = response;
+        _date = DateTime.Now.ToShortDateString();
+        _prompt = prompt;
+        _response = response;
     }
 
-    public string ToEntry()
+    public string GetEntryDetails()
     {
-        return $"Date: {Date}\nPrompt: {Prompt}\nResponse: {Response}\n";
+        return $"Date: {_date}\nPrompt: {_prompt}\nResponse: {_response}\n";
     }
 }

@@ -4,24 +4,24 @@ using System.IO;
 
 public class Journal
 {
-    private List<Entry> entries = new List<Entry>();
+    private List<Entry> _entries = new List<Entry>();
 
     public void AddEntry(string prompt, string response)
     {
-        entries.Add(new Entry(prompt, response));
+        _entries.Add(new Entry(prompt, response));
     }
 
     public void DisplayEntries()
     {
-        if (entries.Count == 0)
+        if (_entries.Count == 0)
         {
             Console.WriteLine("No entries found.");
             return;
         }
 
-        foreach (var entry in entries)
+        foreach (var entry in _entries)
         {
-            Console.WriteLine(entry);
+            Console.WriteLine(entry.GetEntryDetails());
         }
     }
 
@@ -29,9 +29,9 @@ public class Journal
     {
         using (StreamWriter writer = new StreamWriter(filename))
         {
-            foreach (var entry in entries)
+            foreach (var entry in _entries)
             {
-                writer.WriteLine($"{entry.Date}~|~{entry.Prompt}~|~{entry.Response}");
+                writer.WriteLine($"{entry._date}~|~{entry._prompt}~|~{entry._response}");
             }
         }
         Console.WriteLine("Journal saved successfully.");
@@ -45,15 +45,15 @@ public class Journal
             return;
         }
 
-        entries.Clear();
+        _entries.Clear();
         string[] lines = File.ReadAllLines(filename);
         foreach (var line in lines)
         {
             string[] parts = line.Split("~|~");
             if (parts.Length == 3)
             {
-                Entry entry = new Entry(parts[1], parts[2]) { Date = parts[0] };
-                entries.Add(entry);
+                Entry entry = new Entry(parts[1], parts[2]) { _date = parts[0] };
+                _entries.Add(entry);
             }
         }
         Console.WriteLine("Journal loaded successfully.");
