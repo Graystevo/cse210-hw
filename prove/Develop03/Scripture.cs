@@ -8,6 +8,8 @@ namespace ScriptureMemorizer
     {
         public Reference Reference { get; private set; }
         private List<Words> _words;
+        private Words[] _allWords;    // Array of all words.
+        private Words[] _hiddenWords; // Array of only hidden words.
         private Random _random;
 
         public Scripture(Reference reference, string text)
@@ -23,9 +25,17 @@ namespace ScriptureMemorizer
             }
 
             _random = new Random();
+            UpdateWordArrays();
         }
 
-        // Display the scripture with its reference. Hidden words appear as underscores.
+        // Update our arrays to reflect the current state of _words.
+        private void UpdateWordArrays()
+        {
+            _allWords = _words.ToArray();
+            _hiddenWords = _words.Where(w => w.IsHidden).ToArray();
+        }
+
+        // Display the scripture with its reference.
         public void Display()
         {
             Console.WriteLine(Reference.ToString());
@@ -50,6 +60,32 @@ namespace ScriptureMemorizer
                 int index = _random.Next(_words.Count);
                 _words[index].Hide();
             }
+            UpdateWordArrays();
+        }
+
+        // Unhide a set number of random words from those that are hidden.
+        public void UnhideRandomWords(int count)
+        {
+            // Get a list of currently hidden words.
+            List<Words> hiddenList = _words.Where(w => w.IsHidden).ToList();
+            if (hiddenList.Count == 0)
+            {
+                return; // Nothing to unhide.
+            }
+
+            // Unhide up to 'count' words.
+            for (int i = 0; i < count; i++)
+            {
+                if (hiddenList.Count == 0)
+                {
+                    break; // No more hidden words.
+                }
+
+                int index = _random.Next(hiddenList.Count);
+                hiddenList[index].Unhide();
+                hiddenList.RemoveAt(index); // Remove it so it's not unhidden twice.
+            }
+            UpdateWordArrays();
         }
     }
 }

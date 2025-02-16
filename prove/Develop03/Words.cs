@@ -2,24 +2,33 @@ namespace ScriptureMemorizer
 {
     public class Words
     {
-        public string _text { get; private set; }
-        public bool IsHidden { get; private set; }
+        private string _text;
+        private bool _isHidden;
 
         public Words(string text)
         {
             _text = text;
-            IsHidden = false;
+            _isHidden = false;
         }
+
+        // Public property to expose the hidden state.
+        public bool IsHidden => _isHidden;
 
         public void Hide()
         {
-            IsHidden = true;
+            _isHidden = true;
         }
 
-        public string ToHiddenString()
+        // New method to unhide a word.
+        public void Unhide()
         {
-            // display underscore matching the length of the word when hidden.
-            return IsHidden ? new string('_', _text.Length) : _text;
+            _isHidden = false;
+        }
+
+        public override string ToString()
+        {
+            // If the word is hidden, show underscores matching the length of the word.
+            return _isHidden ? new string('_', _text.Length) : _text;
         }
     }
 }
