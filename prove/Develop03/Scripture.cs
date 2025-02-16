@@ -7,19 +7,19 @@ namespace ScriptureMemorizer
     public class Scripture
     {
         public Reference Reference { get; private set; }
-        private List<Word> _words;
+        private List<Words> _words;
         private Random _random;
 
         public Scripture(Reference reference, string text)
         {
             Reference = reference;
-            _words = new List<Word>();
+            _words = new List<Words>();
 
             // Split the scripture text into individual words.
             string[] splitWords = text.Split(' ');
             foreach (string word in splitWords)
             {
-                _words.Add(new Word(word));
+                _words.Add(new Words(word));
             }
 
             _random = new Random();
