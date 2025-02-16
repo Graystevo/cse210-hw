@@ -9,7 +9,7 @@ namespace ScriptureMemorizer
             // Example: using a single verse reference.
             Reference reference = new Reference("John", 3, 16);
             string scriptureText = "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.";
-            
+
             Scripture scripture = new Scripture(reference, scriptureText);
 
             while (true)
@@ -30,11 +30,11 @@ namespace ScriptureMemorizer
                 {
                     break;
                 }
-                else if (input == "unhide")
+                else if (input == "unhide") // unhides 3 random words, CHECKED to make sure it only unhides hidden words
                 {
                     scripture.UnhideRandomWords(3);
                 }
-                else // Default action (when pressing Enter)
+                else // Default action = hides 3 rand words, CHECKED to make sure it doesn't hide word already hidden
                 {
                     scripture.HideRandomWords(3);
                 }

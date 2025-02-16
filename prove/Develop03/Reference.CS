@@ -33,8 +33,8 @@ namespace ScriptureMemorizer
 
         public override string ToString()
         {
-            return _verseEnd.HasValue 
-                ? $"{_book} {_chapter}:{_verse}-{_verseEnd}" 
+            return _verseEnd.HasValue
+                ? $"{_book} {_chapter}:{_verse}-{_verseEnd}"
                 : $"{_book} {_chapter}:{_verse}";
         }
     }

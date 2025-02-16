@@ -17,7 +17,7 @@ namespace ScriptureMemorizer
             Reference = reference;
             _words = new List<Words>();
 
-            // Split the scripture text into individual words.
+            // split the scripture text into individual words.
             string[] splitWords = text.Split(' ');
             foreach (string word in splitWords)
             {
@@ -28,14 +28,14 @@ namespace ScriptureMemorizer
             UpdateWordArrays();
         }
 
-        // Update our arrays to reflect the current state of _words.
+        // update our arrays to reflect the current state of _words.
         private void UpdateWordArrays()
         {
             _allWords = _words.ToArray();
             _hiddenWords = _words.Where(w => w.IsHidden).ToArray();
         }
 
-        // Display the scripture with its reference.
+        // display the scripture with its reference.
         public void Display()
         {
             Console.WriteLine(Reference.ToString());
@@ -46,24 +46,38 @@ namespace ScriptureMemorizer
             Console.WriteLine();
         }
 
-        // Returns true if all words are hidden.
+        // returns true if all words are hidden.
         public bool AllWordsHidden()
         {
             return _words.All(w => w.IsHidden);
         }
 
-        // Hide a set number of words at random.
+        // hide a set number of words at random, but only those that are not already hidden.
         public void HideRandomWords(int count)
         {
-            for (int i = 0; i < count; i++)
+            // get list of words that are not yet hidden.
+            List<Words> visibleWords = _words.Where(w => !w.IsHidden).ToList();
+            if (visibleWords.Count == 0)
             {
-                int index = _random.Next(_words.Count);
-                _words[index].Hide();
+                return; // Nothing left to hide.
             }
+
+            // determine how many words we can hide.
+            int numberToHide = Math.Min(count, visibleWords.Count);
+
+            for (int i = 0; i < numberToHide; i++)
+            {
+                // choose a random visible word.
+                int index = _random.Next(visibleWords.Count);
+                visibleWords[index].Hide();
+                // remove it from the list to avoid hiding it again in this iteration.
+                visibleWords.RemoveAt(index);
+            }
+
             UpdateWordArrays();
         }
 
-        // Unhide a set number of random words from those that are hidden.
+        // unhide a set number of random words from those that are hidden.
         public void UnhideRandomWords(int count)
         {
             // Get a list of currently hidden words.
@@ -74,13 +88,9 @@ namespace ScriptureMemorizer
             }
 
             // Unhide up to 'count' words.
-            for (int i = 0; i < count; i++)
+            int numberToUnhide = Math.Min(count, hiddenList.Count);
+            for (int i = 0; i < numberToUnhide; i++)
             {
-                if (hiddenList.Count == 0)
-                {
-                    break; // No more hidden words.
-                }
-
                 int index = _random.Next(hiddenList.Count);
                 hiddenList[index].Unhide();
                 hiddenList.RemoveAt(index); // Remove it so it's not unhidden twice.
