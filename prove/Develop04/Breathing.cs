@@ -9,7 +9,7 @@ namespace MindfulnessApp
         // Activity-specific attribute.
         private List<string> _breathingPattern;
 
-        // Constructor: Initializes base values and sets up breathing-specific data.
+        // Constructor: Initializes base values and sets up breathing-specific data. (name, desc)
         public Breathing() : base("Breathing", "This activity will help you relax by guiding you through deep breathing. Clear your mind and focus on your breathing.")
         {
             _breathingPattern = new List<string> { "Breathe in...", "Breathe out..." };
@@ -24,13 +24,12 @@ namespace MindfulnessApp
             Console.WriteLine("Get ready to begin...");
             WaitAnimation();
 
-            // Continue the breathing cycle until the specified duration is reached.
             int secondsElapsed = 0;
             while (secondsElapsed < _duration)
             {
                 BreathInOut();
-                // For simplicity, assume each cycle takes approximately 4 seconds.
-                secondsElapsed += 4;
+                // assume each cycle takes approximately 5 seconds.
+                secondsElapsed += 5;
             }
 
             GenericEnding();
@@ -48,7 +47,7 @@ namespace MindfulnessApp
             foreach (string instruction in _breathingPattern)
             {
                 Console.WriteLine(instruction);
-                for (int i = 3; i > 0; i--)
+                for (int i = 0; i < 5; i++)
                 {
                     Console.Write($"{i} ");
                     Thread.Sleep(1000);

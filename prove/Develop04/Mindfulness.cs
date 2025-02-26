@@ -6,12 +6,11 @@ namespace MindfulnessApp
 {
     public class Mindfulness
     {
-        // Protected members accessible by derived classes.
+        // protected members accessible by child classes
         protected string _activityName;
         protected string _description;
         protected int _duration;
 
-        // Constructor: Initializes the base attributes.
         public Mindfulness(string activityName, string description)
         {
             _activityName = activityName;
@@ -23,6 +22,7 @@ namespace MindfulnessApp
         {
             Console.Clear();
             Console.WriteLine($"Welcome to the {_activityName} Activity.");
+            Console.WriteLine();
             Console.WriteLine(_description);
             Console.WriteLine();
         }
@@ -30,14 +30,14 @@ namespace MindfulnessApp
         // Prompts the user to input the duration (in seconds) for the session.
         public void DurationPrompt()
         {
-            Console.Write("Enter the duration of the activity in seconds: ");
+            Console.Write("How long, in seconds, would you like for your session? ");
             while (!int.TryParse(Console.ReadLine(), out _duration))
             {
                 Console.Write("Invalid input. Please enter a number: ");
             }
         }
 
-        // Shows an animation during pauses (a simple spinner in this case).
+        // Shows an animation during pauses (a simple dot progression in this case).
         public void WaitAnimation()
         {
             Console.Write("Waiting ");
@@ -55,7 +55,7 @@ namespace MindfulnessApp
             Console.WriteLine();
             Console.WriteLine("Well done!");
             WaitAnimation();
-            Console.WriteLine($"You have completed the {_activityName} Activity for {_duration} seconds.");
+            Console.WriteLine($"You have completed another {_duration} of the {_activityName} Activity!");
             WaitAnimation();
         }
 
