@@ -38,15 +38,22 @@ namespace MindfulnessApp
         }
 
         // Shows an animation during pauses (a simple dot progression in this case).
-        public void WaitAnimation()
+        public void WaitAnimation(int totalSeconds)
         {
-            Console.Write("Waiting ");
-            for (int i = 0; i < 5; i++)
+            // Spinner characters for the animation.
+            char[] spinner = { '|', '/', '-', '\\' };
+            Console.Write("");
+
+            DateTime startTime = DateTime.Now;
+            int spinnerIndex = 0;
+            // Continue looping until the specified duration has elapsed.
+            while ((DateTime.Now - startTime).TotalSeconds < totalSeconds)
             {
-                Console.Write(".");
-                Thread.Sleep(500);
+                Console.Write(spinner[spinnerIndex]);
+                Thread.Sleep(500);  // Delay for each spinner symbol.
+                Console.Write("\b \b"); // Erase the symbol.
+                spinnerIndex = (spinnerIndex + 1) % spinner.Length;
             }
-            Console.WriteLine();
         }
 
         // Displays a generic ending message summarizing the activity.
@@ -54,9 +61,9 @@ namespace MindfulnessApp
         {
             Console.WriteLine();
             Console.WriteLine("Well done!");
-            WaitAnimation();
-            Console.WriteLine($"You have completed another {_duration} of the {_activityName} Activity!");
-            WaitAnimation();
+            WaitAnimation(5);
+            Console.WriteLine($"You have completed another {_duration} seconds of the {_activityName} Activity!");
+            WaitAnimation(10);
         }
 
         // Displays a prompt chosen randomly from a list.
@@ -66,7 +73,7 @@ namespace MindfulnessApp
             {
                 Random rand = new Random();
                 int index = rand.Next(prompts.Count);
-                Console.WriteLine(prompts[index]);
+                Console.WriteLine($"--- {prompts[index]} ---");
             }
         }
     }

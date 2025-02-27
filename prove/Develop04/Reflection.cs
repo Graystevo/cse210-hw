@@ -11,7 +11,7 @@ namespace MindfulnessApp
         private List<string> _reflectQuestions;
 
         // Constructor: Initializes base values and reflection-specific lists.
-        public Reflection() : base("Reflection", "This activity will help you reflect on times when you have shown strength and resilience. Reflect on your past experiences.")
+        public Reflection() : base("Reflection", "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.")
         {
             _reflectPrompts = new List<string>
             {
@@ -38,14 +38,30 @@ namespace MindfulnessApp
         // Controls the sequence of the reflection activity.
         public void ReflectionMethod()
         {
-            GenericGreeting();
-            DurationPrompt();
-            ReflectionDescription();
-            Console.WriteLine("Get ready to begin...");
-            WaitAnimation();
+            GenericGreeting(); // welcome...
+            DurationPrompt(); // how long u wanna?
+            Console.Clear();
 
-            // Display a random reflective prompt.
-            DisplayPrompt(_reflectPrompts);
+            Console.WriteLine("Get ready ...");
+            WaitAnimation(5);
+
+            ReflectionDescription(); // teach user what to do in task; consider the following...
+            Console.WriteLine();
+            DisplayPrompt(_reflectPrompts); // Display random prompt.
+            Console.WriteLine();
+            Console.WriteLine("When you have something in mind, press enter to continue.");
+            Console.WriteLine();
+            Console.ReadKey(); // wait for key press
+
+            Console.WriteLine("Now ponder on each of the following questions as they related to this experience.");
+            Console.WriteLine("You may begin in: ");
+            for (int i = 5; i > 0; i--)
+                {
+                    Console.Write($"{i} ");
+                    Thread.Sleep(1000);
+                }
+            Console.WriteLine();
+            Console.WriteLine();
 
             // Continue to display reflection questions until the duration expires.
             DateTime startTime = DateTime.Now;
@@ -60,7 +76,7 @@ namespace MindfulnessApp
         // Displays the description specific to the reflection activity.
         public void ReflectionDescription()
         {
-            Console.WriteLine("Reflect on the following prompt and answer the questions that follow.");
+            Console.WriteLine("Consider the following prompt: ");
         }
 
         // Iterates through reflective questions, pausing after each.
@@ -68,8 +84,8 @@ namespace MindfulnessApp
         {
             Random rand = new Random();
             int index = rand.Next(_reflectQuestions.Count);
-            Console.WriteLine(_reflectQuestions[index]);
-            WaitAnimation();
+            Console.WriteLine($"> {_reflectQuestions[index]}");
+            WaitAnimation(10);
         }
     }
 }

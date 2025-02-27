@@ -21,33 +21,32 @@ namespace MindfulnessApp
             GenericGreeting();
             DurationPrompt();
             BreathingDescription();
+            Console.Clear();
             Console.WriteLine("Get ready to begin...");
-            WaitAnimation();
+            WaitAnimation(5);
 
             int secondsElapsed = 0;
             while (secondsElapsed < _duration)
             {
                 BreathInOut();
-                // assume each cycle takes approximately 5 seconds.
-                secondsElapsed += 5;
+                // assume each cycle takes approximately 10 seconds.
+                secondsElapsed += 10;
             }
 
             GenericEnding();
         }
 
-        // Displays the description specific to the breathing activity.
         public void BreathingDescription()
         {
             Console.WriteLine("Follow the instructions to breathe in and out slowly.");
         }
 
-        // Alternates between "Breathe in..." and "Breathe out..." with a simple countdown.
         public void BreathInOut()
         {
-            foreach (string instruction in _breathingPattern)
+            foreach (string instruction in _breathingPattern) // runs twice cause 2 instructions in list
             {
                 Console.WriteLine(instruction);
-                for (int i = 0; i < 5; i++)
+                for (int i = 1; i < 6; i++)
                 {
                     Console.Write($"{i} ");
                     Thread.Sleep(1000);

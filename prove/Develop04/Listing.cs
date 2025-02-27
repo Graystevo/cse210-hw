@@ -11,7 +11,7 @@ namespace MindfulnessApp
         private List<string> _userResponses;
 
         // Constructor: Initializes base values and listing-specific lists.
-        public Listing() : base("Listing", "This activity will help you reflect on the good things in your life by listing as many things as you can in a certain area.")
+        public Listing() : base("Listing", "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.")
         {
             _listingPrompts = new List<string>
             {
@@ -29,20 +29,29 @@ namespace MindfulnessApp
         {
             GenericGreeting();
             DurationPrompt();
-            ListingDescription();
+            Console.Clear();
             Console.WriteLine("Get ready to begin...");
-            WaitAnimation();
 
-            // Display a random prompt.
+            ListingDescription();
+            WaitAnimation(5);
+
             DisplayPrompt(_listingPrompts);
-            Console.WriteLine("Start listing items. Press Enter after each. When time is up, the activity will end.");
+            Console.WriteLine("You may begin in: ");
+            for (int i = 5; i > 0; i--)
+            {
+                Console.Write($"{i} ");
+                Thread.Sleep(1000);
+            }
+            Console.WriteLine();
 
             DateTime startTime = DateTime.Now;
             while ((DateTime.Now - startTime).TotalSeconds < _duration)
             {
+
                 // Check if user has input a response.
                 if (Console.KeyAvailable)
                 {
+                    Console.Write("> ");
                     string response = Console.ReadLine();
                     if (!string.IsNullOrWhiteSpace(response))
                     {
@@ -50,7 +59,7 @@ namespace MindfulnessApp
                     }
                 }
             }
-            
+
             ResponseCount();
             GenericEnding();
         }
@@ -58,7 +67,7 @@ namespace MindfulnessApp
         // Explains the purpose of the listing activity.
         public void ListingDescription()
         {
-            Console.WriteLine("List as many items as you can that come to mind related to the prompt.");
+            Console.WriteLine("List as many responses you can to the following prompt:");
         }
 
         // Displays the number of items the user has listed.
