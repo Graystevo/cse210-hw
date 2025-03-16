@@ -1,0 +1,4 @@
+750
+SimpleGoal|goal test|test the goal|140|True
+EternalGoal|eternal goal test|test goal for eternal testing loop|50|11
+ChecklistGoal|checklist test|testing cheklist|20|3|500|2000|False

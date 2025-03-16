@@ -1,10 +1,10 @@
-public abstract class Goal 
+public abstract class Goal
 {
     protected string name;
     protected string description;
     protected int points;
 
-    public Goal(string name, string description, int points) 
+    public Goal(string name, string description, int points)
     {
         this.name = name;
         this.description = description;

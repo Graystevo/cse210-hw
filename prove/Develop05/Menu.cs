@@ -2,21 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-public class Menu 
+public class Menu
 {
     private int score;
     private List<Goal> goals;
 
-    public Menu() 
+    public Menu()
     {
         score = 0;
         goals = new List<Goal>();
     }
 
-    public void Run() 
+    public void Run()
     {
         bool exit = false;
-        while (!exit) 
+        while (!exit)
         {
             Console.WriteLine("\n--- Eternal Quest ---");
             Console.WriteLine($"Score: {score}");
@@ -29,7 +29,7 @@ public class Menu
             Console.WriteLine("6. Quit");
             Console.Write("Select a choice from the menu: ");
             string choice = Console.ReadLine();
-            switch(choice) 
+            switch (choice)
             {
                 case "1":
                     CreateNewGoal();
@@ -56,7 +56,7 @@ public class Menu
         }
     }
 
-    private void CreateNewGoal() 
+    private void CreateNewGoal()
     {
         Console.WriteLine("The types of Goals are:");
         Console.WriteLine("1. Simple Goal");
@@ -73,7 +73,7 @@ public class Menu
         int points = int.Parse(Console.ReadLine());
 
         Goal goal = null;
-        switch(typeChoice) 
+        switch (typeChoice)
         {
             case "1":
                 goal = new SimpleGoal(name, description, points);
@@ -96,29 +96,29 @@ public class Menu
         Console.WriteLine("Goal created successfully!");
     }
 
-    private void ListGoals() 
+    private void ListGoals()
     {
         Console.WriteLine("\nYour Goals:");
         int index = 1;
-        foreach (Goal goal in goals) 
+        foreach (Goal goal in goals)
         {
             Console.WriteLine($"{index}. {goal.GetDisplayString()}");
             index++;
         }
     }
 
-    private void RecordEvent() 
+    private void RecordEvent()
     {
         Console.WriteLine("Select the goal you accomplished:");
         int index = 1;
-        foreach (Goal goal in goals) 
+        foreach (Goal goal in goals)
         {
             Console.WriteLine($"{index}. {goal.GetDisplayString()}");
             index++;
         }
         Console.Write("Enter the number of the goal: ");
         int choice = int.Parse(Console.ReadLine());
-        if (choice < 1 || choice > goals.Count) 
+        if (choice < 1 || choice > goals.Count)
         {
             Console.WriteLine("Invalid goal number.");
             return;
@@ -129,45 +129,45 @@ public class Menu
         Console.WriteLine($"You earned {earnedPoints} points!");
     }
 
-    private void SaveGoals() 
+    private void SaveGoals()
     {
         Console.Write("Enter the filename to save: ");
         string filename = Console.ReadLine();
-        using (StreamWriter writer = new StreamWriter(filename)) 
+        using (StreamWriter writer = new StreamWriter(filename))
         {
             // Save the score on the first line
             writer.WriteLine(score);
             // Save each goal on its own line using a type indicator and properties separated by '|'
-            foreach (Goal goal in goals) 
+            foreach (Goal goal in goals)
             {
                 writer.WriteLine(goal.GetSaveData());
             }
         }
-        Console.WriteLine("Goals saved successfully!");
+        Console.WriteLine("Goals saved successfully! WOOOOOOO");
     }
 
-    private void LoadGoals() 
+    private void LoadGoals()
     {
         Console.Write("Enter the filename to load: ");
         string filename = Console.ReadLine();
-        if (!File.Exists(filename)) 
+        if (!File.Exists(filename))
         {
-            Console.WriteLine("File does not exist.");
+            Console.WriteLine("File does not exist. Bummer");
             return;
         }
         goals.Clear();
-        using (StreamReader reader = new StreamReader(filename)) 
+        using (StreamReader reader = new StreamReader(filename))
         {
             string firstLine = reader.ReadLine();
             score = int.Parse(firstLine);
             string line;
-            while ((line = reader.ReadLine()) != null) 
+            while ((line = reader.ReadLine()) != null)
             {
                 string[] parts = line.Split('|');
                 // The first part indicates the goal type
                 string goalType = parts[0];
                 Goal goal = null;
-                switch(goalType) 
+                switch (goalType)
                 {
                     case "SimpleGoal":
                         // Format: SimpleGoal|name|description|points|isCompleted
@@ -185,7 +185,7 @@ public class Menu
                         Console.WriteLine("Unknown goal type in file.");
                         break;
                 }
-                if(goal != null) 
+                if (goal != null)
                 {
                     goals.Add(goal);
                 }
