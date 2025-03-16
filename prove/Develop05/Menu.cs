@@ -135,9 +135,7 @@ public class Menu
         string filename = Console.ReadLine();
         using (StreamWriter writer = new StreamWriter(filename))
         {
-            // Save the score on the first line
             writer.WriteLine(score);
-            // Save each goal on its own line using a type indicator and properties separated by '|'
             foreach (Goal goal in goals)
             {
                 writer.WriteLine(goal.GetSaveData());
@@ -164,7 +162,6 @@ public class Menu
             while ((line = reader.ReadLine()) != null)
             {
                 string[] parts = line.Split('|');
-                // The first part indicates the goal type
                 string goalType = parts[0];
                 Goal goal = null;
                 switch (goalType)
