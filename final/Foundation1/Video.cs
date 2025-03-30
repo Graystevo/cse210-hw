@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace YouTubeApp
+namespace VideoTracker
 {
     public class Video
     {

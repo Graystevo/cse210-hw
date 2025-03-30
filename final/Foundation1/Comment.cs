@@ -1,6 +1,6 @@
 using System;
 
-namespace YouTubeApp
+namespace VideoTracker
 {
     public class Comment
     {
