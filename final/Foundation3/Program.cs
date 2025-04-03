@@ -6,12 +6,12 @@ namespace EventManager
     {
         public static void Main(string[] args)
         {
-            // Create Address instances for events
+            // example address for testing
             Address lectureAddress = new Address("123 Main St", "Springfield", "IL", "USA");
             Address receptionAddress = new Address("456 Elm St", "Metropolis", "NY", "USA");
             Address outdoorAddress = new Address("789 Oak St", "Gotham", "NJ", "USA");
 
-            // Create event instances
+            // examples events for testing
             Lecture lecture = new Lecture(
                 "Tech Trends 2025",
                 "A lecture on emerging technology trends.",
@@ -40,15 +40,17 @@ namespace EventManager
                 "Sunny with a chance of clouds"
             );
 
-            // Display details for each event
+            Console.WriteLine("");
             Console.WriteLine("Lecture Standard Details:\n" + lecture.GetStandardDetails() + "\n");
             Console.WriteLine("Lecture Full Details:\n" + lecture.GetFullDetails() + "\n");
             Console.WriteLine("Lecture Short Description:\n" + lecture.GetShortDescription() + "\n");
 
+            Console.WriteLine("");
             Console.WriteLine("Reception Standard Details:\n" + reception.GetStandardDetails() + "\n");
             Console.WriteLine("Reception Full Details:\n" + reception.GetFullDetails() + "\n");
             Console.WriteLine("Reception Short Description:\n" + reception.GetShortDescription() + "\n");
 
+            Console.WriteLine("");
             Console.WriteLine("Outdoor Standard Details:\n" + outdoor.GetStandardDetails() + "\n");
             Console.WriteLine("Outdoor Full Details:\n" + outdoor.GetFullDetails() + "\n");
             Console.WriteLine("Outdoor Short Description:\n" + outdoor.GetShortDescription() + "\n");
