@@ -5,12 +5,12 @@ using System.IO;
 public class Menu
 {
     private int score;
-    private List<Goal> goals;
+    private List<Goal> goalList;
 
     public Menu()
     {
         score = 0;
-        goals = new List<Goal>();
+        goalList = new List<Goal>();
     }
 
     public void Run()
@@ -92,7 +92,7 @@ public class Menu
                 Console.WriteLine("Invalid goal type selected.");
                 return;
         }
-        goals.Add(goal);
+        goalList.Add(goal);
         Console.WriteLine("Goal created successfully!");
     }
 
@@ -100,7 +100,7 @@ public class Menu
     {
         Console.WriteLine("\nYour Goals:");
         int index = 1;
-        foreach (Goal goal in goals)
+        foreach (Goal goal in goalList)
         {
             Console.WriteLine($"{index}. {goal.GetDisplayString()}");
             index++;
@@ -111,19 +111,19 @@ public class Menu
     {
         Console.WriteLine("Select the goal you accomplished:");
         int index = 1;
-        foreach (Goal goal in goals)
+        foreach (Goal goal in goalList)
         {
             Console.WriteLine($"{index}. {goal.GetDisplayString()}");
             index++;
         }
         Console.Write("Enter the number of the goal: ");
         int choice = int.Parse(Console.ReadLine());
-        if (choice < 1 || choice > goals.Count)
+        if (choice < 1 || choice > goalList.Count)
         {
             Console.WriteLine("Invalid goal number.");
             return;
         }
-        Goal selectedGoal = goals[choice - 1];
+        Goal selectedGoal = goalList[choice - 1];
         int earnedPoints = selectedGoal.RecordEvent();
         score += earnedPoints;
         Console.WriteLine($"You earned {earnedPoints} points!");
@@ -136,7 +136,7 @@ public class Menu
         using (StreamWriter writer = new StreamWriter(filename))
         {
             writer.WriteLine(score);
-            foreach (Goal goal in goals)
+            foreach (Goal goal in goalList)
             {
                 writer.WriteLine(goal.GetSaveData());
             }
@@ -153,7 +153,7 @@ public class Menu
             Console.WriteLine("File does not exist. Bummer");
             return;
         }
-        goals.Clear();
+        goalList.Clear();
         using (StreamReader reader = new StreamReader(filename))
         {
             string firstLine = reader.ReadLine();
@@ -184,7 +184,7 @@ public class Menu
                 }
                 if (goal != null)
                 {
-                    goals.Add(goal);
+                    goalList.Add(goal);
                 }
             }
         }

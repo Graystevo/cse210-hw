@@ -1,0 +1,9 @@
+1000
+EternalGoal|test|testttttt|22|0
+SimpleGoal  | test 2 |  test desc   |   1000    |   True
+SimpleGoal|test 2 |test desc|1000|True
+SimpleGoal|test 2 |test desc|1000|True
+SimpleGoal|test 2 |test desc|1000|True
+SimpleGoal|test 2 |test desc|1000|True
+SimpleGoal|test 2 |test desc|1000|True
+SimpleGoal|test 2 |test desc|1000|True
