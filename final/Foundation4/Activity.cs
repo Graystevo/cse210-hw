@@ -13,6 +13,7 @@ namespace FitnessApp
             _duration = duration;
         }
 
+        // the polymorphism bits below, changed by the sub classes to fit their needs
         public abstract float GetDistance();
         public abstract float GetSpeed();
         public abstract float GetPace();

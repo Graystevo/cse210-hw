@@ -5,13 +5,14 @@ namespace FitnessApp
     public class Swimming : Activity
     {
         private int _laps;
-        private const float LapDistance = 0.05f; // Each lap is 50 meters (converted to km)
+        private const float LapDistance = 0.05f; // each lap is 50 meters (converted to km)
 
         public Swimming(string date, int duration, int laps) : base(date, duration)
         {
             _laps = laps;
         }
 
+        // the polymorphism bits below
         public override float GetDistance()
         {
             return _laps * LapDistance;
